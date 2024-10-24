@@ -12,24 +12,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Color surfaceColor = Color(0x0dfffffff);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
+        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        brightness: Brightness.light,
+        dividerColor: surfaceColor,
+        scaffoldBackgroundColor: Colors.grey.shade200,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
@@ -41,7 +32,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget{
   Widget build(BuildContext context){
      return Scaffold(
-       appBar: AppBar(title: Text('Profession' , ) , backgroundColor: Colors.greenAccent.shade200,actions: [
+       appBar: AppBar(title: Text('HealthCare Center' , ) , backgroundColor: Colors.greenAccent.shade100,actions: [
 
          Icon(CupertinoIcons.chat_bubble),
          Padding(padding: const EdgeInsets.fromLTRB(1, 1, 1, 1)),
@@ -50,6 +41,7 @@ class MyHomePage extends StatelessWidget{
 
        ],),
        body: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
          children: [
             Padding(
 
@@ -59,21 +51,48 @@ class MyHomePage extends StatelessWidget{
                ClipRRect(
                  borderRadius: BorderRadius.circular(8),
                  child: Image.asset(
-                   '/Users/amirhosein/StudioProjects/p_pay/assets/images/images.jpg',
-
-
+                   'assets/images/images.jpg',
+                   width: 100,
+                   height: 100,
+                   fit: BoxFit.cover
 
                  ),),
                   SizedBox(width: 20,),
                   Column(children: [
-                      Text('Doctor Alex'),
-                      SizedBox(height: 8,),
-                      Text('Dentist'),
+                    Row(
+                      children: [
+                        Icon(
+                          CupertinoIcons.person_solid,  // Use a human icon, in this case, from Cupertino icons
+                          size: 20,  // Adjust the size if needed
+                          color: Colors.grey,  // Set the color if needed
+                        ),
+                        SizedBox(width: 5),  // Space between the icon and the text
+                        Text(
+                          'Dr naaeini Dental Clinic',  // The text beside the human icon
+                          style: TextStyle(
+                            fontSize: 16,  // Set the text size
+                            color: Colors.black,  // Set the text color
+                          ),
+                        ),
+                      ],
+                    ),
+
                     SizedBox(height: 8,),
                     Row(
                       children: [
-                        Icon(CupertinoIcons.location_solid),
-                        Text('tehran, Iran')
+                        Icon(
+                          CupertinoIcons.location_solid,  // The icon
+                          size: 20,  // Set the size of the icon if needed
+                          color: Colors.grey,  // You can change the color if needed
+                        ),
+                        SizedBox(width: 5),  // Add some space between the icon and text
+                        Text(
+                          'Tehran, Iran',  // The text beside the icon
+                          style: TextStyle(
+                            fontSize: 16,  // Set font size
+                            color: Colors.black,  // Set text color
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 50,)
@@ -85,7 +104,8 @@ class MyHomePage extends StatelessWidget{
 
 
             ),
-           Text('10 years experienced dentist'),
+           Divider(),
+           Text(textAlign: TextAlign.right,'clinic Services & Prices'),
 
          ],
        ),
