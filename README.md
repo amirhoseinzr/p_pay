@@ -1,6 +1,6 @@
 # p_pay
 
-A new Flutter project.
+payment gateway using universal accounts in particle network.
 
 ## Getting Started
 
