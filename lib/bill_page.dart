@@ -16,7 +16,9 @@ class BillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Bill")),
+      appBar: AppBar(
+        title: Text('Bill & Payment'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -43,6 +45,15 @@ class BillPage extends StatelessWidget {
             Text(
               'Total Bill: \$${totalBill}',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Payment logic or navigation goes here
+                },
+                child: Text('Proceed to Payment'),
+              ),
             ),
           ],
         ),
