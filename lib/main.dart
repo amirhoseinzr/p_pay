@@ -29,89 +29,152 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget{
-  Widget build(BuildContext context){
-     return Scaffold(
-       appBar: AppBar(title: Text('HealthCare Center' , ) , backgroundColor: Colors.greenAccent.shade100,actions: [
+class MyHomePage extends StatelessWidget {
+  final List<Map<String, String>> services = [
+    {'name': 'Teeth Cleaning', 'price': '100'},
+    {'name': 'Cavity Filling', 'price': '200'},
+    {'name': 'Root Canal', 'price': '500'},
+    {'name': 'implant', 'price': '1000'},
+  ];
 
-         Icon(CupertinoIcons.chat_bubble),
-         Padding(padding: const EdgeInsets.fromLTRB(1, 1, 1, 1)),
-         SizedBox(width: 10,),
-         Icon(CupertinoIcons.ellipsis_vertical),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
 
-       ],),
-       body: Column(
-         crossAxisAlignment: CrossAxisAlignment.start,
-         children: [
-            Padding(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: SafeArea(child: AppBar(title: Text('' , style: TextStyle(color: Colors.black)),
+        centerTitle: true,
 
-              padding: const EdgeInsets.all(32),
-              child: Row(
-                children: [
-               ClipRRect(
-                 borderRadius: BorderRadius.circular(8),
-                 child: Image.asset(
-                   'assets/images/images.jpg',
-                   width: 100,
-                   height: 100,
-                   fit: BoxFit.cover
-
-                 ),),
-                  SizedBox(width: 20,),
-                  Column(children: [
-                    Row(
-                      children: [
-                        Icon(
-                          CupertinoIcons.person_solid,  // Use a human icon, in this case, from Cupertino icons
-                          size: 20,  // Adjust the size if needed
-                          color: Colors.grey,  // Set the color if needed
-                        ),
-                        SizedBox(width: 5),  // Space between the icon and the text
-                        Text(
-                          'Dr naaeini Dental Clinic',  // The text beside the human icon
-                          style: TextStyle(
-                            fontSize: 16,  // Set the text size
-                            color: Colors.black,  // Set the text color
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 8,),
-                    Row(
-                      children: [
-                        Icon(
-                          CupertinoIcons.location_solid,  // The icon
-                          size: 20,  // Set the size of the icon if needed
-                          color: Colors.grey,  // You can change the color if needed
-                        ),
-                        SizedBox(width: 5),  // Add some space between the icon and text
-                        Text(
-                          'Tehran, Iran',  // The text beside the icon
-                          style: TextStyle(
-                            fontSize: 16,  // Set font size
-                            color: Colors.black,  // Set text color
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 50,)
-                    
-                  ],
-                  )
-              ],
+          actions: [
+            Icon(CupertinoIcons.chat_bubble),
+            SizedBox(width: 10),
+            Icon(CupertinoIcons.ellipsis_vertical),
+          ],
+          flexibleSpace: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset('assets/images/image.jpg',
+                  fit: BoxFit.contain),
+              Container(
+                color: Colors.black.withOpacity(.1),
               ),
+            ],
+          ),
+        )),
 
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(32),
+            child: Row(
 
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    'assets/images/images.jpg',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(width: 20),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(CupertinoIcons.person_solid, size: 20, color: Colors.grey),
+                        SizedBox(width: 5),
+                        Text(
+                          'Dr Naaeini Dental Clinic',
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Icon(CupertinoIcons.location_solid, size: 20, color: Colors.grey),
+                        SizedBox(width: 5),
+                        Text(
+                          'Tehran, Iran',
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-           Divider(),
-           Text(textAlign: TextAlign.right,'clinic Services & Prices'),
-
-         ],
-       ),
-
-     );
+          ),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Clinic Services & Prices',
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: ListView.builder(
+              itemCount: services.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(services[index]['name']!),
+                  subtitle: Text('Price: \$${services[index]['price']}'),
+                  trailing: ElevatedButton(
+                    onPressed: () {
+                      _showPurchaseDialog(context, services[index]['name']!, services[index]['price']!);
+                    },
+                    child: Text('Buy'),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
+
+  void _showPurchaseDialog(BuildContext context, String serviceName, String price) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Confirm Purchase'),
+          content: Text('Do you want to buy $serviceName for \$$price?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Purchased $serviceName for \$$price')),
+                );
+              },
+              child: Text('Buy'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
+
 }
 
 
