@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p_pay/services_page.dart';
-
+import 'package:p_pay/shop_page.dart';
 import 'bill_page.dart';
-import 'clinic_page.dart';
+import 'map_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,12 +17,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -31,21 +33,15 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
   List<Map<String, String>> purchasedServices = [];
 
-  // Pages for the BottomNavigationBar
   final List<Widget> _pages = [];
 
   @override
   void initState() {
     super.initState();
-    // Initialize pages with updated purchasedServices list
     _pages.addAll([
-      ClinicPage(),
-      ServicesPage(onServicePurchased: (service) {
-        setState(() {
-          purchasedServices.add(service);
-        });
-      }),
+      const ShopPage(),
       BillPage(purchasedServices: purchasedServices),
+      MapPage(), // OpenStreetMap page
     ]);
   }
 
@@ -60,18 +56,18 @@ class _MainPageState extends State<MainPage> {
             _currentIndex = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: 'Clinic Info',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Services',
+            icon: Icon(Icons.shopping_cart_rounded),
+            label: 'Shop List',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt),
             label: 'Bill & Payment',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Map',
           ),
         ],
       ),

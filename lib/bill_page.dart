@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BillPage extends StatelessWidget {
   final List<Map<String, String>> purchasedServices;
 
-  BillPage({required this.purchasedServices});
+  const BillPage({super.key, required this.purchasedServices});
 
   int get totalBill {
     return purchasedServices.fold(
@@ -17,18 +16,18 @@ class BillPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bill & Payment'),
+        title: const Text('Bill & Payment'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Purchased Services:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
                 itemCount: purchasedServices.length,
@@ -41,18 +40,18 @@ class BillPage extends StatelessWidget {
                 },
               ),
             ),
-            Divider(),
+            const Divider(),
             Text(
-              'Total Bill: \$${totalBill}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              'Total Bill: \$$totalBill',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   // Payment logic or navigation goes here
                 },
-                child: Text('Proceed to Payment'),
+                child: const Text('Proceed to Payment'),
               ),
             ),
           ],
