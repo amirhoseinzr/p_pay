@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
-  location: ^4.4.0
+  geolocator: ^9.0.0
 
 
 dev_dependencies:

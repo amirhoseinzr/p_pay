@@ -69,8 +69,8 @@ class _MapPageState extends State<MapPage> {
               onLongPress: (tapPosition, point) {
                 _onMapLongPress(point); // Capture the long pressed location
               },
-              initialCenter: _mapCenter,
-              initialZoom: _zoomLevel,
+              initialCenter: _mapCenter, // Updated parameter
+              initialZoom: _zoomLevel, // Updated parameter
             ),
             children: [
               TileLayer(
@@ -84,6 +84,7 @@ class _MapPageState extends State<MapPage> {
                       width: 80.0,
                       height: 80.0,
                       point: _selectedLocation!,
+                      // Updated constructor without 'builder'
                       child: Container(
                         alignment: Alignment.center,
                         child: const Icon(
@@ -138,5 +139,34 @@ class _MapPageState extends State<MapPage> {
   void _addShop() {
     // Implement your shop addition logic here
     // This can be a dialog or a new screen to input shop details
+    showDialog(
+      context: context,
+      builder: (context) {
+        final TextEditingController nameController = TextEditingController();
+        return AlertDialog(
+          title: const Text('Add New Shop'),
+          content: TextField(
+            controller: nameController,
+            decoration: const InputDecoration(labelText: 'Shop Name'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                // You can save the shop details and handle the location here
+                // For now, just close the dialog
+                Navigator.of(context).pop();
+              },
+              child: const Text('Add'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
