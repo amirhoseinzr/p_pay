@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BillPage extends StatelessWidget {
+
   final List<Map<String, String>> purchasedServices;
 
   const BillPage({super.key, required this.purchasedServices});
@@ -11,6 +12,9 @@ class BillPage extends StatelessWidget {
           (sum, service) => sum + int.parse(service['price']!),
     );
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,4 +63,12 @@ class BillPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class PurchasedItem {
+  final String name;
+  final String roomType;
+  final int price;
+
+  PurchasedItem({required this.name, required this.roomType, required this.price});
 }

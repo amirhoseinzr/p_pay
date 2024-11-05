@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Clinic App',
+      title: 'Hotel App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _pages.addAll([
-      const ShopPage(),
+      const HotelPage(),
       BillPage(purchasedServices: purchasedServices),
       MapPage(), // OpenStreetMap page
     ]);
@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_rounded),
-            label: 'Shop List',
+            label: 'Hotel List',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt),
