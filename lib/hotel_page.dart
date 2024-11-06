@@ -1,6 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+
+import 'bill_page.dart';
 
 class HotelPage extends StatefulWidget {
   const HotelPage({super.key});
@@ -10,88 +11,88 @@ class HotelPage extends StatefulWidget {
 }
 
 class _HotelPageState extends State<HotelPage> {
-  // List to store shop information
   final List<Map<String, String>> _hotels = [
     {
       'name': 'Four Seasons Hotel',
       'location': 'San Francisco at Embarcadero',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '110 \$'
+      '2 Bed Room Price': '110'
     },
     {
       'name': 'Hotel Vitale',
       'location': 'Embarcadero, San Francisco',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '240 \$'
+      '2 Bed Room Price': '240'
     },
     {
       'name': 'Bayfront Lodge',
       'location': 'Embarcadero, San Francisco',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '450 \$'
+      '2 Bed Room Price': '450'
     },
     {
       'name': 'Marina Bay Inn',
       'location': 'Ferry Building, San Francisco',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '150 \$'
+      '2 Bed Room Price': '150'
     },
     {
       'name': 'Golden Gate Suites',
       'location': 'Financial District, San Francisco',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '80 \$'
+      '2 Bed Room Price': '80'
     },
     {
       'name': 'Pier View Hotel',
       'location': 'Embarcadero, San Francisco',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '115 \$'
+      '2 Bed Room Price': '115'
     },
     {
       'name': 'Harbor Point Lodge',
       'location': 'Embarcadero, San Francisco',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '55 \$'
+      '2 Bed Room Price': '55'
     },
     {
       'name': 'Waterfront Inn',
       'location': 'Financial District, San Francisco',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '800 \$'
+      '2 Bed Room Price': '800'
     },
     {
       'name': 'The Savoy',
       'location': 'Strand, London',
       'specialization': 'Luxury Hotel',
-      '2 Bed Room Price': '60 \$'
+      '2 Bed Room Price': '60'
     },
     {
       'name': 'The Ritz London',
       'location': 'Piccadilly, London',
       'specialization': 'Luxury Hotel',
-      '2 Bed Room Price': '140 \$'
+      '2 Bed Room Price': '140'
     },
     {
       'name': 'Shangri-La The Shard',
       'location': 'The Shard, London Bridge',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '250 \$'
+      '2 Bed Room Price': '250'
     },
     {
       'name': 'Claridge\'s',
       'location': 'Brook Street, Mayfair',
       'specialization': 'Luxury Hotel',
-      '2 Bed Room Price': '60 \$'
+      '2 Bed Room Price': '60'
     },
     {
       'name': 'The Langham',
       'location': 'Regent Street, London',
       'specialization': 'Hotel',
-      '2 Bed Room Price': '90 \$'
+      '2 Bed Room Price': '90'
     },
-    // Add more shops here as needed
   ];
+
+  final List<Map<String, String>> _purchasedServices = [];
 
   void _addHotel() {
     final TextEditingController nameController = TextEditingController();
@@ -109,7 +110,7 @@ class _HotelPageState extends State<HotelPage> {
             children: [
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Hotel List'),
+                decoration: const InputDecoration(labelText: 'Hotel Name'),
               ),
               TextField(
                 controller: locationController,
@@ -128,7 +129,7 @@ class _HotelPageState extends State<HotelPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text('Cancel'),
             ),
@@ -146,7 +147,7 @@ class _HotelPageState extends State<HotelPage> {
                       '2 Bed Room Price': priceController.text,
                     });
                   });
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 }
               },
               child: const Text('Add'),
@@ -157,33 +158,36 @@ class _HotelPageState extends State<HotelPage> {
     );
   }
 
-  void _showRoomOptions(BuildContext context, Map<String, String> shop) {
+  void _showRoomOptions(BuildContext context, Map<String, String> hotel) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('${shop['name']} Room Options'),
+          title: Text('${hotel['name']} Room Options'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                title: Text('2 Bed Room'),
-                subtitle: Text('Price: ${shop['2 Bed Room Price']}'),
+                title: const Text('2 Bed Room'),
+                subtitle: Text('Price: ${hotel['2 Bed Room Price']} \$'),
+                onTap: () => _addToBill(context, hotel, '2 Bed Room', hotel['2 Bed Room Price']!),
               ),
               ListTile(
-                title: Text('3 Bed Room'),
+                title: const Text('3 Bed Room'),
                 subtitle: Text('Price: ${_getRandomPrice()} \$'),
+                onTap: () => _addToBill(context, hotel, '3 Bed Room', _getRandomPrice()),
               ),
               ListTile(
-                title: Text('4 Bed Room'),
+                title: const Text('4 Bed Room'),
                 subtitle: Text('Price: ${_getRandomPrice()} \$'),
+                onTap: () => _addToBill(context, hotel, '4 Bed Room', _getRandomPrice()),
               ),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text('Close'),
             ),
@@ -196,6 +200,21 @@ class _HotelPageState extends State<HotelPage> {
   String _getRandomPrice() {
     final Random random = Random();
     return (50 + random.nextInt(451)).toString();
+  }
+
+  void _addToBill(BuildContext context, Map<String, String> hotel, String roomType, String price) {
+    setState(() {
+      _purchasedServices.add({
+        'name': '${hotel['name']} - $roomType',
+        'price': price,
+      });
+    });
+    Navigator.of(context).pop();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BillPage(purchasedServices: _purchasedServices),
+      ),
+    );
   }
 
   @override
@@ -216,7 +235,7 @@ class _HotelPageState extends State<HotelPage> {
             width: double.infinity,
             height: 50,
             child: Image.asset(
-              'assets/images/image.png', // Replace with your image path
+              'assets/images/image.png',
               fit: BoxFit.contain,
             ),
           ),
@@ -225,12 +244,12 @@ class _HotelPageState extends State<HotelPage> {
             child: ListView.builder(
               itemCount: _hotels.length,
               itemBuilder: (context, index) {
-                final shop = _hotels[index];
+                final hotel = _hotels[index];
                 return GestureDetector(
-                  onTap: () => _showRoomOptions(context, shop),
+                  onTap: () => _showRoomOptions(context, hotel),
                   child: ListTile(
-                    title: Text(shop['name']!),
-                    subtitle: Text('${shop['location']} - ${shop['specialization']}'),
+                    title: Text(hotel['name']!),
+                    subtitle: Text('${hotel['location']} - ${hotel['specialization']}'),
                   ),
                 );
               },
@@ -239,7 +258,7 @@ class _HotelPageState extends State<HotelPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addHotel  , //or hotels
+        onPressed: _addHotel,
         child: const Icon(Icons.add),
       ),
     );

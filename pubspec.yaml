@@ -39,6 +39,10 @@ dependencies:
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
   geolocator: ^9.0.0
+  provider: ^6.0.5
+  google_sign_in: ^6.2.1
+  flutter_dotenv: ^5.1.0
+  okto_flutter_sdk: ^0.0.15
 
 
 dev_dependencies:

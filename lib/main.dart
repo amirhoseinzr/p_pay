@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:p_pay/shop_page.dart';
+import 'package:p_pay/hotel_page.dart';
 import 'bill_page.dart';
+import 'bill_provider.dart';
 import 'map_page.dart';
+import 'package:provider/provider.dart';
+
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => BillProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -58,7 +70,7 @@ class _MainPageState extends State<MainPage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_rounded),
+            icon: Icon(Icons.hotel),
             label: 'Hotel List',
           ),
           BottomNavigationBarItem(
