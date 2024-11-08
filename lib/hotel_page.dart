@@ -222,7 +222,7 @@ class _HotelPageState extends State<HotelPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Hotels Can be Booked By',
+          'Hotels Can be Booked by',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
         ),

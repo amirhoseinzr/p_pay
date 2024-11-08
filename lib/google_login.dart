@@ -16,7 +16,7 @@ class LoginWithGoogle extends StatelessWidget {
         // Pass user data to Okto if necessary
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(builder: (context) => const MainPage()),
         );
       }
     } catch (error) {

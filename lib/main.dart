@@ -10,10 +10,18 @@ import 'bill_provider.dart';
 import 'map_page.dart';
 import 'package:provider/provider.dart';
 
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  okto = Okto(globals.getOktoApiKey(), globals.getBuildType());
+  await oktoService.initializeOkto();
+
+  // await ParticleAuth.initialize(
+  //   env: 'sandbox',  // Replace with your environment, e.g., "prod" or "test"
+  //   projectId: 'a10cbc4b-475f-4a27-b4a8-137cf6b84a67', // Add your Particle Network Project ID
+  // );
+
 
   runApp(
     MultiProvider(
@@ -50,9 +58,9 @@ class MyApp extends StatelessWidget {
           } else {
             bool isLoggedIn = snapshot.data ?? false;
             if (isLoggedIn) {
-              return const HomePage();
+              return const MainPage();  // Directs to MainPage with the BottomNavigationBar
             } else {
-              return const LoginWithGoogle();
+              return const LoginWithGoogle(); // Directs to the Google login page if not logged in
             }
           }
         },
